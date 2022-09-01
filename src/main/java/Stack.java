@@ -1,28 +1,31 @@
 public class Stack {
     private static int top = -1;
+    private static int[] arr = new int[3];
     public static void main(String[] args) {
-        int[] a = new int[10];
-        push(a, 1);
-        push(a, 10);
-        push(a, 5);
-        System.out.println(toString(a));
-        System.out.println(top);
-        pop(a);
-        pop(a);
-        System.out.println(toString(a));
+        push(1);
+        push(10);
+        push(5);
+        System.out.println(toString(arr));
+        push(6);
+        System.out.println(toString(arr));
+        pop();
+        pop();
+        System.out.println(toString(arr));
     }
 
-    public static void push(int[] arr, int x) {
-        if (top != arr.length) {
-            top++;
-            arr[top] = x;
+    public static void push(int x) {
+        top++;
+        if (top == arr.length) {
+            int[] oldArr = arr;
+            arr = new int[top * 2];
+            for (int i = 0; i < oldArr.length; i++) {
+                arr[i] = oldArr[i];
+            }
         }
-        else {
-
-        }
+        arr[top] = x;
     }
 
-    public static int pop(int[] arr) {
+    public static int pop() {
         int x;
         if (top != -1) {
             x = arr[top];
@@ -33,10 +36,10 @@ public class Stack {
         return -1;
     }
 
-    public static String toString(int[] a) {
+    public static String toString(int[] arr) {
         String string = "";
-        for (int i = 0; i < a.length; i++) {
-            string += a[i] + " ";
+        for (int i = 0; i < arr.length; i++) {
+            string += arr[i] + " ";
         }
         return string;
     }
